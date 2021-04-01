@@ -39,9 +39,13 @@ cryptsetup luksFormat /dev/sda3
 cryptsetup luksOpen /dev/sda3 enc-pv
 
 6- Create LVM
+
 pvcreate /dev/mapper/enc-pv
+
 vgcreate vg /dev/mapper/enc-pv
+
 lvcreate -n swap vg -L 10G
+
 lvcreate -n root vg -l 100%FREE
 
 7- Format partition
