@@ -51,13 +51,13 @@ lvcreate -n root vg -l 100%FREE
 
 
 7- Format partition
-
+<verbatim>
 mkfs.vfat -n BOOT /dev/sda2
 
 mkfs.ext4 -L root /dev/vg/root
 
 mkswap -L swap /dev/vg/swap
-
+</verbatim>
 
 
 
