@@ -48,23 +48,46 @@ lvcreate -n swap vg -L 10G
 
 lvcreate -n root vg -l 100%FREE
 
+
+
 7- Format partition
+
 mkfs.vfat -n BOOT /dev/sda2
+
 mkfs.ext4 -L root /dev/vg/root
+
 mkswap -L swap /dev/vg/swap
 
+
+
+
 8- Mount it
+
 mount /dev/vg/root /mnt
+
 mkdir /mnt/boot
+
 mount /dev/sda2 /mnt/boot
 
+
+
+
 9- Swap
+
 swapon /dev/vg/swap
 
+
+
+
 10- Configuration
+
 nixos-generate-config --root /mnt
 
+
+
+
 11- Go to /mnt/etc/nixo and add the following to configuration.nix:
+
 boot.initrd.luks.devices = [
   {
     name = "root";
@@ -94,9 +117,13 @@ Be aware it's possible that "wlp3s0" wouldn't work in your configuration, check 
 If you get "Successfully initialized wpa_supplicant"  you hace to run wpa_cli command then type "scan" then "scan_results" then "add_network" then "set_network 0 "network_name" then "set_network 0 psk "network_password" then "save config"
 
 
+
 13- Type nixos-install and if everything went well you're almost done (if something failed, check typos), then reboot.
 
+
+
 14- To enable graphical environment add this to /etc/nixos/configuration.nix :
+
 services.xserver = {
   enable = true;
   desktopManager.kde4.enable = true;
@@ -104,6 +131,7 @@ services.xserver = {
 };
 
 15- To add an user add this to configuration.nix (then use passwd command to create one) :
+
 users.extraUsers.USERNIX = {
   name = "USERNIX";
   group = "users";
@@ -118,7 +146,9 @@ users.extraUsers.USERNIX = {
 };
 
 
+
 16- To enable network manager replace:
+
 networking.wireless.enable = true;
 
 with
