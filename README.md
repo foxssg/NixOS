@@ -87,7 +87,7 @@ nixos-generate-config --root /mnt
 
 
 11- Go to /mnt/etc/nixo and add the following to configuration.nix:
-
+<verbatim>
 boot.initrd.luks.devices = [
   {
     name = "root";
@@ -99,7 +99,7 @@ boot.initrd.luks.devices = [
 boot.loader.grub.device = "/dev/sda";
 
 networking.wireless.enable = true;
-
+</verbatim>
 
 12- This is the stage that I had problem with, wifi. This tutorial was my salvation:
 https://shapeshed.com/linux-wifi/
